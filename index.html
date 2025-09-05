@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端工具库</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛠️ 前端工具库</h1>
+            <p>常用开发工具集合</p>
+        </header>
+        
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="field-translator">字段翻译</button>
+            <button class="tab-btn" data-tab="base64-encode">Base64编码/解码</button>
+            <button class="tab-btn" data-tab="image-base64">图片转Base64</button>
+            <button class="tab-btn" data-tab="json-format">JSON格式化</button>
+            <button class="tab-btn" data-tab="qr-generator">二维码生成</button>
+            <button class="tab-btn" data-tab="password-generator">密码生成器</button>
+            <button class="tab-btn" data-tab="regex-tester">正则测试</button>
+            <button class="tab-btn" data-tab="hash-calculator">哈希计算</button>
+            <button class="tab-btn" data-tab="number-converter">进制转换</button>
+        </nav>
+
+        <main class="tab-content">
+            <!-- 字段名称翻译器 -->
+            <div class="tab-panel active" id="field-translator">
+                <div class="tool-section">
+                    <h2>🌐 字段名称翻译器</h2>
+                    
+                    <!-- API配置区域 -->
+                    <div class="api-config">
+                        <h3>🔧 翻译API配置</h3>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="googleTranslateEnabled" checked>
+                                Google翻译 (免费稳定，优先使用)
+                            </label>
+                        </div>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="libreTranslateEnabled">
+                                LibreTranslate (免费开源，备用选择)
+                            </label>
+                        </div>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="baiduTranslateEnabled">
+                                百度翻译API (需要申请密钥)
+                            </label>
+                            <div class="api-keys" id="baiduKeys" style="display: none;">
+                                <input type="text" id="baiduAppId" placeholder="App ID">
+                                <input type="text" id="baiduSecretKey" placeholder="Secret Key">
+                                <button id="saveBaiduConfig">保存配置</button>
+                            </div>
+                        </div>
+                        <div class="api-info">
+                            <p><strong>使用说明：</strong></p>
+                            <ul>
+                                <li>Google翻译：通过MyMemory API，免费且稳定，优先使用</li>
+                                <li>LibreTranslate：免费开源，备用选择</li>
+                                <li>百度翻译：需要申请免费额度，每月200万字符</li>
+                                <li>系统会按优先级依次尝试：Google → LibreTranslate → 百度翻译</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>输入字段名称:</label>
+                        <input type="text" id="fieldInput" placeholder="输入中文或英文字段名称，如: 用户名 或 username">
+                    </div>
+                    <div class="button-group">
+                        <button class="action-btn" id="translateToEnglish" data-original-text="翻译为英文">翻译为英文</button>
+                        <button class="action-btn" id="translateToChinese" data-original-text="翻译为中文">翻译为中文</button>
+                        <button class="action-btn" id="suggestVariants" data-original-text="建议变体">建议变体</button>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="fieldResult" placeholder="翻译结果将显示在这里..."></textarea>
+                        <button class="copy-btn" id="copyField">复制</button>
+                    </div>
+                    <div class="field-suggestions" id="fieldSuggestions" style="display: none;">
+                        <h3>💡 常见字段名称参考</h3>
+                        <div class="suggestion-grid">
+                            <div class="suggestion-category">
+                                <h4>用户相关</h4>
+                                <div class="suggestion-item">用户名 → username, userName, user_name</div>
+                                <div class="suggestion-item">密码 → password, pwd, passwd</div>
+                                <div class="suggestion-item">邮箱 → email, mail, emailAddress</div>
+                                <div class="suggestion-item">手机号 → phone, mobile, phoneNumber</div>
+                            </div>
+                            <div class="suggestion-category">
+                                <h4>时间相关</h4>
+                                <div class="suggestion-item">创建时间 → createTime, createdAt, create_time</div>
+                                <div class="suggestion-item">更新时间 → updateTime, updatedAt, update_time</div>
+                                <div class="suggestion-item">删除时间 → deleteTime, deletedAt, delete_time</div>
+                            </div>
+                            <div class="suggestion-category">
+                                <h4>状态相关</h4>
+                                <div class="suggestion-item">状态 → status, state</div>
+                                <div class="suggestion-item">是否启用 → enabled, isEnabled, active</div>
+                                <div class="suggestion-item">是否删除 → deleted, isDeleted, removed</div>
+                            </div>
+                            <div class="suggestion-category">
+                                <h4>业务相关</h4>
+                                <div class="suggestion-item">订单号 → orderNo, orderNumber, order_id</div>
+                                <div class="suggestion-item">商品名称 → productName, name, title</div>
+                                <div class="suggestion-item">价格 → price, amount, cost</div>
+                                <div class="suggestion-item">数量 → quantity, count, num</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片转Base64 -->
+            <div class="tab-panel" id="image-base64">
+                <div class="tool-section">
+                    <h2>📷 图片转Base64</h2>
+                    <div class="input-group">
+                        <input type="file" id="imageFile" accept="image/*" class="file-input">
+                        <label for="imageFile" class="file-label">选择图片文件</label>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="base64Result" placeholder="Base64编码结果将显示在这里..." readonly></textarea>
+                        <button id="copyBase64" class="copy-btn">复制结果</button>
+                    </div>
+                    <div id="imagePreview" class="image-preview"></div>
+                </div>
+            </div>
+
+            <!-- JSON格式化 -->
+            <div class="tab-panel" id="json-format">
+                <div class="tool-section">
+                    <h2>📄 JSON格式化</h2>
+                    <div class="input-group">
+                        <textarea id="jsonInput" placeholder="请输入JSON字符串..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="formatJson" class="action-btn">格式化</button>
+                        <button id="minifyJson" class="action-btn">压缩</button>
+                        <button id="validateJson" class="action-btn">验证</button>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="jsonResult" placeholder="格式化结果将显示在这里..." readonly></textarea>
+                        <button id="copyJson" class="copy-btn">复制结果</button>
+                    </div>
+                    <div id="jsonStatus" class="status-message"></div>
+                </div>
+            </div>
+
+            <!-- Base64编码/解码 -->
+            <div class="tab-panel" id="base64-encode">
+                <div class="tool-section">
+                    <h2>🔐 Base64编码/解码</h2>
+                    <div class="input-group">
+                        <textarea id="base64Input" placeholder="请输入要编码/解码的文本..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="encodeBase64" class="action-btn">编码</button>
+                        <button id="decodeBase64" class="action-btn">解码</button>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="base64Output" placeholder="编码/解码结果将显示在这里..." readonly></textarea>
+                        <button id="copyBase64Output" class="copy-btn">复制结果</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 二维码生成 -->
+            <div class="tab-panel" id="qr-generator">
+                <div class="tool-section">
+                    <h2>📱 二维码生成</h2>
+                    <div class="input-group">
+                        <textarea id="qrInput" placeholder="请输入要生成二维码的内容..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="generateQR" class="action-btn">生成二维码</button>
+                        <button id="downloadQR" class="action-btn">下载二维码</button>
+                    </div>
+                    <div class="qr-result">
+                        <canvas id="qrCanvas" width="200" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 密码生成器 -->
+            <div class="tab-panel" id="password-generator">
+                <div class="tool-section">
+                    <h2>🔐 密码生成器</h2>
+                    <div class="input-group">
+                        <label>密码长度: <input type="number" id="passwordLength" value="12" min="4" max="128"></label>
+                    </div>
+                    <div class="input-group">
+                        <label><input type="checkbox" id="includeUppercase" checked> 包含大写字母</label>
+                        <label><input type="checkbox" id="includeLowercase" checked> 包含小写字母</label>
+                        <label><input type="checkbox" id="includeNumbers" checked> 包含数字</label>
+                        <label><input type="checkbox" id="includeSymbols" checked> 包含特殊符号</label>
+                    </div>
+                    <div class="button-group">
+                        <button class="action-btn" id="generatePassword">生成密码</button>
+                        <button class="action-btn" id="generateMultiple">生成多个</button>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="passwordResult" placeholder="生成的密码将显示在这里..."></textarea>
+                        <button class="copy-btn" id="copyPassword">复制</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- 正则表达式测试 -->
+            <div class="tab-panel" id="regex-tester">
+                <div class="tool-section">
+                    <h2>🔍 正则表达式测试器</h2>
+                    <div class="input-group">
+                        <label>正则表达式:</label>
+                        <input type="text" id="regexPattern" placeholder="输入正则表达式，如: /[a-z]+/g">
+                    </div>
+                    <div class="input-group">
+                        <label>测试文本:</label>
+                        <textarea id="regexText" placeholder="输入要测试的文本..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="action-btn" id="testRegex">测试匹配</button>
+                        <button class="action-btn" id="replaceRegex">替换文本</button>
+                    </div>
+                    <div class="input-group">
+                        <label>替换文本:</label>
+                        <input type="text" id="replaceText" placeholder="替换为...">
+                    </div>
+                    <div class="result-area">
+                        <textarea id="regexResult" placeholder="匹配结果将显示在这里..."></textarea>
+                        <button class="copy-btn" id="copyRegex">复制</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- 哈希计算器 -->
+            <div class="tab-panel" id="hash-calculator">
+                <div class="tool-section">
+                    <h2>🔢 哈希计算器</h2>
+                    <div class="input-group">
+                        <textarea id="hashInput" placeholder="输入要计算哈希的文本..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>哈希算法: 
+                            <select id="hashAlgorithm">
+                                <option value="md5">MD5</option>
+                                <option value="sha1">SHA-1</option>
+                                <option value="sha256">SHA-256</option>
+                                <option value="sha512">SHA-512</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="button-group">
+                        <button class="action-btn" id="calculateHash">计算哈希</button>
+                        <button class="action-btn" id="calculateAllHashes">计算所有</button>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="hashResult" placeholder="哈希值将显示在这里..."></textarea>
+                        <button class="copy-btn" id="copyHash">复制</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <!-- 进制转换 -->
+            <div class="tab-panel" id="number-converter">
+                <div class="tool-section">
+                    <h2>🔢 进制转换器</h2>
+                    <div class="input-group">
+                        <input type="text" id="numberInput" placeholder="输入要转换的数字">
+                    </div>
+                    <div class="input-group">
+                        <label>从进制: 
+                            <select id="fromBase">
+                                <option value="2">二进制 (2)</option>
+                                <option value="8">八进制 (8)</option>
+                                <option value="10" selected>十进制 (10)</option>
+                                <option value="16">十六进制 (16)</option>
+                            </select>
+                        </label>
+                        <label>到进制: 
+                            <select id="toBase">
+                                <option value="2">二进制 (2)</option>
+                                <option value="8">八进制 (8)</option>
+                                <option value="10">十进制 (10)</option>
+                                <option value="16" selected>十六进制 (16)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="button-group">
+                        <button class="action-btn" id="convertNumber">转换</button>
+                        <button class="action-btn" id="convertAllBases">转换所有进制</button>
+                    </div>
+                    <div class="result-area">
+                        <textarea id="numberResult" placeholder="转换结果将显示在这里..."></textarea>
+                        <button class="copy-btn" id="copyNumber">复制</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 外部库 -->
+    <script src="lib/qrcode.min.js"></script>
+    <script src="lib/crypto-js.min.js"></script>
+    
+    <!-- 主脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>
