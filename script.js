@@ -1,3 +1,12 @@
+/*
+ * @Description: 前端工具库
+ * @Version: 1.0.0
+ * @Author: Li Yang
+ * @Date: 2025-09-03 22:55:55
+ * @LastEditors: Li Yang
+ * @LastEditTime: 2025-09-08 15:58:38
+ */
+
 // 工具库主脚本
 class FrontendTools {
     constructor() {
