@@ -1,0 +1,321 @@
+/* Chrome插件弹窗专用样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 600px;
+    height: 550px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #333;
+}
+
+.container {
+    padding: 10px;
+    max-height: 580px;
+    overflow-y: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    display: none;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.tab-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 6px 8px;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    min-width: auto;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-weight: bold;
+}
+
+.tab-content {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.2); */
+    min-height: 480px;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.tool-section h2 {
+    font-size: 16px;
+    margin: 10px 0 15px 0;
+    color: #333;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 5px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.action-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 80px;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+.result-area {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.result-area textarea {
+    width: 100%;
+    min-height: 100px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: #218838;
+    transform: scale(1.05);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+.status-message {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.file-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.image-preview {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.qr-result {
+    text-align: center;
+    margin: 15px 0;
+}
+
+#qrCanvas {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 隐藏一些在弹窗中不需要的元素 */
+.api-config {
+    display: none;
+}
+
+.field-suggestions {
+    display: none;
+}
+
+.suggestion-grid {
+    display: none;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 响应式调整 */
+@media (max-width: 400px) {
+    .container {
+        padding: 5px;
+    }
+    
+    .tab-content {
+        padding: 15px;
+    }
+    
+    .tab-btn {
+        font-size: 11px;
+        padding: 5px 6px;
+    }
+}

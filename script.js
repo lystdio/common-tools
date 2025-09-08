@@ -626,6 +626,20 @@ class FrontendTools {
         const baiduSecretKey = this.$('baiduSecretKey');
         const saveBaiduConfig = this.$('saveBaiduConfig');
 
+        // 如果当前页面未包含翻译配置相关的控件，则跳过初始化，避免空引用错误
+        if (
+            !googleTranslateEnabled ||
+            !libreTranslateEnabled ||
+            !baiduTranslateEnabled ||
+            !baiduKeys ||
+            !baiduAppId ||
+            !baiduSecretKey ||
+            !saveBaiduConfig
+        ) {
+            console.warn('未在页面中找到翻译配置相关的控件，已跳过 initApiConfig() 初始化。');
+            return;
+        }
+
         // 设置初始状态
         googleTranslateEnabled.checked = this.translationConfig.googleTranslate.enabled;
         libreTranslateEnabled.checked = this.translationConfig.libreTranslate.enabled;
