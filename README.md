@@ -105,10 +105,20 @@
 
 ```
 common-tools/
-├── index.html          # 主页面
-├── styles.css          # 样式文件
-├── script.js           # 功能脚本
-└── README.md           # 说明文档
+├── manifest.json          # 插件配置文件
+├── popup.html            # 插件弹窗界面
+├── popup-styles.css      # 插件专用样式
+├── script.js             # 主要功能脚本
+├── styles.css            # 原始样式文件
+├── index.html            # 原始网页版本
+├── icons/                # 插件图标
+│   ├── icon16.png
+│   ├── icon32.png
+│   ├── icon48.png
+│   └── icon128.png
+└── lib/                  # 外部库文件
+    ├── qrcode.min.js
+    └── crypto-js.min.js
 ```
 
 ## 开发说明
