@@ -898,8 +898,7 @@ class FrontendTools {
             // 生成不同命名风格的变体（直接使用翻译结果，不进行额外处理）
             variants.push(`驼峰命名: ${this.toCamelCase(translated)}`);
             variants.push(`下划线命名: ${this.toSnakeCase(translated)}`);
-            variants.push(`全小写: ${translated.toLowerCase().replace(/[^\w]/g, '')}`);
-            variants.push(`全大写: ${translated.toUpperCase().replace(/[^\w]/g, '')}`);
+            variants.push(`全大写: ${this.toUpperSnakeCase(translated)}`);
         } else {
             // 英文输入，生成中文翻译和不同风格
             const translated = await this.translateField(input, 'en', 'zh');
@@ -908,8 +907,7 @@ class FrontendTools {
             // 生成不同命名风格的变体（直接使用输入，不进行额外处理）
             variants.push(`驼峰命名: ${this.toCamelCase(input)}`);
             variants.push(`下划线命名: ${this.toSnakeCase(input)}`);
-            variants.push(`全小写: ${input.toLowerCase().replace(/[^\w]/g, '')}`);
-            variants.push(`全大写: ${input.toUpperCase().replace(/[^\w]/g, '')}`);
+            variants.push(`全大写: ${this.toUpperSnakeCase(input)}`);
         }
         
         return variants.join('\n');
@@ -979,6 +977,15 @@ class FrontendTools {
 
         // 默认行为：保持原样
         return str;
+    }
+
+    // 转换为全大写下划线命名
+    toUpperSnakeCase(str) {
+        const snake = this.toSnakeCase(str);
+        if (typeof snake !== 'string') {
+            return snake;
+        }
+        return snake.toUpperCase();
     }
 
     // 智能分割全小写字符串
